@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>招聘职位关键词</title>
+</head>
+<body>
+<div id="chartID" style="height: 200px; width:300px; margin: 0 auto;"></div>
+</body>
+<!--<script src="../js/vue.min.js"></script>-->
+<script src="../js/echarts-all-2.js"></script>
+<script>
+
+  function init(arr) {
+    createChart(arr);
+  }
+  function createChart(datas) {
+      var seriesData = [];
+      for(var i=0;i<datas.length;i++){
+        seriesData.push({
+           name:datas[i].name,
+           value:datas[i].value,
+           itemStyle:datas[i].itemStyle
+        })
+      }
+//      console.log(seriesData)
+    let myChart = echarts.init(document.getElementById('chartID'));
+    myChart.setOption({
+      tooltip: {
+        show: false
+      },
+      series: [
+        {
+          type: 'wordCloud',
+          size: ['100%', '100%'],
+          textRotation: [0, 0, 0, 0],
+          textPadding: 2,
+          autoSize: {
+            enable: true,
+            minSize: 14
+          },
+          data: seriesData
+        }
+      ]
+    })
+    window.onresize = myChart.resize;
+//    console.log(myChart)
+  }
+
+</script>
+</html>
